@@ -3,14 +3,14 @@ FROM ubuntu:24.04
 LABEL maintainer="Form Taylor Otwell"
 
 ARG WWWGROUP=33            # 33 adalah grup www-data di Debian/Ubuntu
-ARG NODE_VERSION=22
+ARG NODE_VERSION=24
 ARG MYSQL_CLIENT="mysql-client"
-ARG POSTGRES_VERSION=17
+ARG POSTGRES_VERSION=18
 
 WORKDIR /var/www/html
 
 ENV DEBIAN_FRONTEND=noninteractive
-ENV TZ=UTC
+ENV TZ=Asia/Jakarta
 # Tidak pakai artisan serve lagi
 # ENV SUPERVISOR_PHP_COMMAND=...
 ENV SUPERVISOR_PHP_USER="www-data"
