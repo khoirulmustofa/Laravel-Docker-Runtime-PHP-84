@@ -47,7 +47,7 @@ RUN curl -sS 'https://keyserver.ubuntu.com/pks/lookup?op=get&search=0xb8dc7e5394
 # Composer
 RUN curl -sLS https://getcomposer.org/installer | php -- --install-dir=/usr/bin/ --filename=composer
 
-# Node 22 + npm + yarn
+# Node 24 + npm + yarn
 RUN curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg \
  && echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_${NODE_VERSION}.x nodistro main" \
     > /etc/apt/sources.list.d/nodesource.list \
@@ -80,8 +80,9 @@ COPY php/php.ini                 /etc/php/8.4/fpm/conf.d/99-custom.ini
 COPY php/www.conf                /etc/php/8.4/fpm/pool.d/www.conf
 COPY supervisor/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 COPY start-container             /usr/local/bin/start-container
+COPY healthcheck.sh              /healthcheck.sh
 
-RUN chmod +x /usr/local/bin/start-container \
+RUN chmod +x /usr/local/bin/start-container /healthcheck.sh \
  && mkdir -p /run/nginx /run/php /var/log/nginx /var/log/php-fpm \
  && chown -R www-data:www-data /run/nginx /run/php /var/log/nginx /var/log/php-fpm
 

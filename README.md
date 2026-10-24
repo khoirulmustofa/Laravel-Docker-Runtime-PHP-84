@@ -5,17 +5,17 @@ A production-ready, high-performance Docker base image designed specifically for
 ## 🚀 Features
 
 - **Base OS**: Ubuntu 24.04 (Noble Numbat)
-- **PHP**: 8.4 (Ondřej Surý PPA)
+- **PHP**: 8.4 (PHP 8.4.27 via Ondřej Surý PPA)
     - Extensions: `fpm`, `cli`, `mysql`, `pgsql`, `sqlite3`, `redis`, `swoole`, `mongodb`, `gd`, `zip`, `bcmath`, `xml`, `intl`, `mbstring`, `imagick`, and more.
 - **Web Server**: Nginx (configured as a reverse proxy for PHP-FPM)
 - **Process Manager**: Supervisor (manages both Nginx and PHP-FPM)
-- **Node.js**: 22.x (includes `npm` and `yarn`)
+- **Node.js**: v24.22.1 LTS (via NodeSource 24.x, includes `npm` and `yarn`)
 - **Other Tools**:
     - Composer
     - Git, Zip, Unzip
     - MySQL & PostgreSQL clients
     - ImageMagick, FFmpeg
-    - Healthcheck script
+    - Healthcheck script (`/healthcheck.sh`)
 
 ## 🛠 Project Explanation
 
@@ -34,18 +34,31 @@ To build the image locally:
 docker build -t laravel-runtime-84 .
 ```
 
-### Build & Push to GHCR
-If you want to push this to GitHub Container Registry:
+You can also customize build arguments such as Node.js version or Postgres client version:
 
 ```bash
-# Login (use your PAT)
+docker build --build-arg NODE_VERSION=24 --build-arg POSTGRES_VERSION=18 -t laravel-runtime-84 .
+```
+
+### Pull from GitHub Packages (GHCR)
+To pull the pre-built image from GitHub Packages:
+
+```bash
+docker pull ghcr.io/khoirulmustofa/laravel-docker-php-84:latest
+```
+
+### Build & Push to GHCR
+If you want to build and push this image to GitHub Container Registry:
+
+```bash
+# Login (use your PAT with write:packages permission)
 echo $GITHUB_TOKEN | docker login ghcr.io -u YOUR_USERNAME --password-stdin
 
 # Build and Tag
-docker build -t ghcr.io/YOUR_USERNAME/laravel-docker-runtime-php-84:latest .
+docker build -t ghcr.io/khoirulmustofa/laravel-docker-php-84:latest .
 
 # Push
-docker push ghcr.io/YOUR_USERNAME/laravel-docker-runtime-php-84:latest
+docker push ghcr.io/khoirulmustofa/laravel-docker-php-84:latest
 ```
 
 ## 📖 How to use in your Laravel Project
@@ -56,7 +69,7 @@ To use this image in your Laravel project's `Dockerfile`, simply refer to it in 
 
 ```dockerfile
 # Use this runtime as the base
-FROM ghcr.io/khoirulmustofa/laravel-docker-runtime-php-84:latest
+FROM ghcr.io/khoirulmustofa/laravel-docker-php-84:latest
 
 # Set working directory
 WORKDIR /var/www/html
