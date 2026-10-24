@@ -1,6 +1,8 @@
 FROM ubuntu:24.04
 
 LABEL maintainer="Form Taylor Otwell"
+LABEL org.opencontainers.image.source="https://github.com/khoirulmustofa/Laravel-Docker-Runtime-PHP-84"
+LABEL org.opencontainers.image.description="Laravel Docker Runtime with PHP 8.4 and Node.js 24 LTS"
 
 ARG WWWGROUP=33            # 33 adalah grup www-data di Debian/Ubuntu
 ARG NODE_VERSION=24
