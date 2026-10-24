@@ -5,6 +5,9 @@ on:
     branches:
       - main
       - master
+    tags:
+      - 'v*.*.*'
+      - '*.*.*'
   workflow_dispatch:
 
 env:
@@ -40,7 +43,8 @@ jobs:
           tags: |
             type=raw,value=latest
             type=raw,value=8.4
-
+            type=raw,value=8.4.27
+            type=ref,event=tag
       - name: Build and push Docker image
         uses: docker/build-push-action@v6
         with:

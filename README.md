@@ -45,7 +45,15 @@ To pull the pre-built image from GitHub Packages:
 
 ```bash
 docker pull ghcr.io/khoirulmustofa/laravel-docker-php-84:latest
+# or pull specific version tags:
+docker pull ghcr.io/khoirulmustofa/laravel-docker-php-84:8.4
+docker pull ghcr.io/khoirulmustofa/laravel-docker-php-84:8.4.27
 ```
+
+Available image tags:
+- `latest`: Latest build from the default branch
+- `8.4`: Latest PHP 8.4 runtime build
+- `8.4.27`: Pinned PHP 8.4.27 release build
 
 ### Build & Push to GHCR
 If you want to build and push this image to GitHub Container Registry:
